@@ -2,7 +2,7 @@
 
 An end-to-end wearable telemetry and multi-axis robotic actuation system powered by dual ESP32 microcontrollers over the ESP-NOW wireless protocol.
 
-This repository contains the complete embedded C++ firmware, hardware pinouts, signal conditioning algorithms, and kinematic mapping logic for a 5-DoF robotic arm driven by a custom sensor glove.
+This repository contains the complete embedded C++ firmware, hardware pinout configurations, signal conditioning algorithms, and kinematic mapping logic for a 5-DoF robotic arm driven by a custom sensor glove.
 
 ---
 
@@ -30,7 +30,7 @@ The system captures hand orientation and finger flexion on a wearable glove, pac
 * **Ultra-Low-Latency ESP-NOW Transport:** Peer-to-peer MAC-layer wireless communication eliminating Wi-Fi router association overhead.
 * **Dedicated 12-Bit PWM Offloading:** Uses an I2C PCA9685 PWM driver to deliver jitter-free 50 Hz pulse widths across all servos without taxing microcontroller hardware timers.
 * **Safety & Range-Constrained Kinematics:** Piecewise angle mapping functions enforce mechanical soft limits across all joints to prevent servo stall and binding.
-* **Hybrid Structural Fabrication:** Combines laser-cut plywood linkages for planar stiffness with 3D-printed brackets for multi-axis joint mounts.
+* **Hybrid Structural Chassis:** Built using a combination of laser-cut plywood linkages for planar stiffness and 3D-printed brackets for multi-axis joint mounts.
 
 ---
 
@@ -76,9 +76,7 @@ The system captures hand orientation and finger flexion on a wearable glove, pac
 │   │   └── Transmitter_Glove.ino   # IMU reading, ADC debounce, ESP-NOW transmit
 │   └── Receiver_Arm/
 │       └── Receiver_Arm.ino        # ESP-NOW callback, joint limits, PCA9685 control
-├── hardware/
-│   ├── cad/                        # 3D print STLs & laser-cut DXF chassis files
-│   └── schematics/                 # Wiring diagrams and pinout documentation
+├── LICENSE
 └── README.md
 ```
 
@@ -114,3 +112,33 @@ if (incomingData.roll >= 90) {
   baseAngle = map(incomingData.roll, 90, 0, DEFAULT_BASE, BASE_MIN);
 }
 baseAngle = constrain(baseAngle, BASE_MIN, BASE_MAX);
+```
+
+---
+
+## Getting Started
+
+### Prerequisites
+* [Arduino IDE](https://www.arduino.cc/en/software) with the **ESP32 Board Package** installed.
+* Required Libraries:
+  * `Adafruit PWMServoDriver`
+  * `Adafruit MPU6050`
+  * `Adafruit Sensor`
+  * `Wire` & `WiFi` (built into ESP32 core)
+
+### Setup & Flashing
+1. **Find Receiver MAC Address:** Run a MAC scanner sketch on your receiver ESP32 to obtain its hardware address.
+2. **Update Transmitter Firmware:** Paste the target address into `receiverAddress[]` in `Transmitter_Glove.ino`:
+   ```cpp
+   uint8_t receiverAddress[] = {0xXX, 0xXX, 0xXX, 0xXX, 0xXX, 0xXX};
+   ```
+3. **Flash Microcontrollers:** Flash `Transmitter_Glove.ino` to the wearable glove board and `Receiver_Arm.ino` to the robotic arm controller.
+4. **Serial Control:** Open the Serial Monitor on the receiver board at `115200 baud`:
+   * Send `'A'` to engage live telemetry tracking.
+   * Send `'S'` to immediately disengage and safely park the arm at default resting positions.
+
+---
+
+## License
+
+Distributed under the MIT License. See `LICENSE` for more information.
