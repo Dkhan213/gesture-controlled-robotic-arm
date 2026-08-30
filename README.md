@@ -1,5 +1,10 @@
 # Wireless Gesture-Controlled Robotic Arm
 
+<p align="center">
+  <img src="assets/glove_prototype.png" width="45%" />
+  <img src="assets/robotic_arm.png" width="45%" />
+</p>
+
 An end-to-end wearable telemetry and multi-axis robotic actuation system powered by dual ESP32 microcontrollers over the ESP-NOW wireless protocol.
 
 This repository contains the complete embedded C++ firmware, hardware pinout configurations, signal conditioning algorithms, and kinematic mapping logic for a 5-DoF robotic arm driven by a custom sensor glove.
