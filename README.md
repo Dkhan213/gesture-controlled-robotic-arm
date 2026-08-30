@@ -1,8 +1,8 @@
 # Wireless Gesture-Controlled Robotic Arm
 
 <p align="center">
-  <img src="assets/glove_prototype.png" width="45%" />
-  <img src="assets/robotic_arm.png" width="45%" />
+  <img src="assets/glove_prototype.jpg" width="45%" />
+  <img src="assets/robotic_arm.jpg" width="45%" />
 </p>
 
 An end-to-end wearable telemetry and multi-axis robotic actuation system powered by dual ESP32 microcontrollers over the ESP-NOW wireless protocol.
@@ -76,6 +76,9 @@ The system captures hand orientation and finger flexion on a wearable glove, pac
 ## Repository Structure
 
 ```
+├── assets/                         # Project images and hardware media
+│   ├── glove_prototype.png
+│   └── robotic_arm.png
 ├── firmware/
 │   ├── Transmitter_Glove/
 │   │   └── Transmitter_Glove.ino   # IMU reading, ADC debounce, ESP-NOW transmit
